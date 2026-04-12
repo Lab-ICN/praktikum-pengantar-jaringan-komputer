@@ -1,76 +1,136 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-  
-</head>
-<body>
-    <h1>📡 TCP/UDP Python Server</h1>
+# TCP/UDP Python Server
 
-<p>This repository contains simple Python-based <strong>TCP</strong> and <strong>UDP</strong> servers and clients, designed to demonstrate basic socket communication using multithreading (for TCP) and datagram handling (for UDP). This repository is built for networking practice purposes.</p>
+This repository contains simple Python-based **TCP** and **UDP** servers and clients for basic networking practice.
 
-<hr>
+## Prerequisites Installation
 
-<h2>📦 Prerequisites Installation</h2>
+Use [server/prerequisites.sh](server/prerequisites.sh) to install required packages and configure the system.
 
-<p>Use the <code>prerequisities.sh</code> script to install all required packages and configure the system for running TCP/UDP servers.</p>
+```bash
+chmod +x server/prerequisites.sh
+./server/prerequisites.sh
+```
 
-<pre><code>chmod +x prerequisities.sh
-./prerequisities.sh
-</code></pre>
+The script performs the following:
 
-  <p>This script performs the following:</p>
-    <ul>
-        <li>Updates system packages</li>
-        <li>Installs Python 3, pip, tcpdump, net-tools, and OpenSSH</li>
-        <li>Enables and starts SSH server</li>
-        <li>Sets up firewall rules to allow:
-            <ul>
-                <li>22/tcp for SSH</li>
-                <li>15151/tcp for TCP Server</li>
-                <li>16161/udp for UDP Server</li>
-            </ul>
-        </li>
-    </ul>
+- Updates system packages
+- Installs Python 3, pip, tcpdump, net-tools, and OpenSSH
+- Enables and starts SSH server
+- Sets up firewall rules to allow:
+  - `22/tcp` for SSH
+  - `15151/tcp` for TCP server
+  - `16161/udp` for UDP server
 
-  <hr>
+## TCP Server
 
-  <h2>⚙️ TCP Server</h2>
-    <p>File: <code>tcp-server.py</code></p>
-    <p>This server uses multithreading to handle multiple TCP clients concurrently on port <code>15151</code>.</p>
-    <pre><code>python3 tcp-server.py</code></pre>
-    <p>Functionality:</p>
-    <ul>
-        <li>Accepts incoming TCP connections</li>
-        <li>Receives lowercase messages</li>
-        <li>Sends back uppercase version of the message</li>
-    </ul>
-    <hr>
-    <h2>📨 UDP Server</h2>
-    <p>File: <code>udp-server.py</code></p>
-    <p>This server listens for UDP datagrams on port <code>16161</code>.</p>
-    <pre><code>python3 udp-server.py</code></pre>
-    <p>Functionality:</p>
-    <ul>
-        <li>Receives datagrams from any UDP client</li>
-        <li>Prints received messages</li>
-        <li>Responds with the message converted to uppercase</li>
-    </ul>
-    <hr>
-    <h2>📁 Folder Structure</h2>
-    <pre>
-pjk-tcp-udp/
-├── client/
-│   ├── tcp-client.py
-│   └── udp-client.py
-├── prerequisities.sh
-├── tcp-server.py
-└── udp-server.py
-    </pre>
-    <hr>
-    <h2>🛡️ Security & Firewall</h2>
-    <p>The script automatically enables <code>ufw</code> and opens the necessary ports. You can check status with:</p>
-    <pre><code>sudo ufw status numbered</code></pre>
+File: [server/tcp-server.py](server/tcp-server.py)
 
-</body>
-</html>
+This server uses multithreading to handle multiple TCP clients concurrently on port `15151`.
+
+```bash
+python3 server/tcp-server.py
+```
+
+Functionality:
+
+- Accepts incoming TCP connections
+- Receives lowercase messages
+- Sends back uppercase version of the message
+
+## UDP Server
+
+File: [server/udp-server.py](server/udp-server.py)
+
+This server listens for UDP datagrams on port `16161`.
+
+```bash
+python3 server/udp-server.py
+```
+
+Functionality:
+
+- Receives datagrams from any UDP client
+- Prints received messages
+- Responds with the message converted to uppercase
+
+## Folder Structure
+
+```text
+Modul6/
+|- README.md
+|- client/
+|  |- tcp-client.py
+|  `- udp-client.py
+|- server/
+|  |- prerequisites.sh
+|  |- tcp-server.py
+|  `- udp-server.py
+`- systemd/
+   |- pjk-tcp-server.service
+   `- pjk-udp-server.service
+```
+
+## Security and Firewall
+
+The prerequisite script enables `ufw` and opens required ports.
+
+Check firewall status:
+
+```bash
+sudo ufw status numbered
+```
+
+## Run Servers with Systemd
+
+This repository includes ready-to-use service files:
+
+- [systemd/pjk-tcp-server.service](systemd/pjk-tcp-server.service)
+- [systemd/pjk-udp-server.service](systemd/pjk-udp-server.service)
+
+### 1. Adjust service paths and user
+
+Before installing, edit both files so these fields match your machine:
+
+- `User=`
+- `WorkingDirectory=`
+- `ExecStart=`
+
+Current values point to `/home/member/pjk-tcp-udp/server`, so update them if your project path is different.
+
+### 2. Copy service files to systemd directory
+
+```bash
+sudo cp systemd/pjk-tcp-server.service /etc/systemd/system/
+sudo cp systemd/pjk-udp-server.service /etc/systemd/system/
+```
+
+### 3. Reload daemon and enable services
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now pjk-tcp-server.service
+sudo systemctl enable --now pjk-udp-server.service
+```
+
+### 4. Verify service status
+
+```bash
+sudo systemctl status pjk-tcp-server.service
+sudo systemctl status pjk-udp-server.service
+```
+
+### 5. View logs
+
+```bash
+sudo journalctl -u pjk-tcp-server.service -f
+sudo journalctl -u pjk-udp-server.service -f
+```
+
+### Optional service management
+
+```bash
+sudo systemctl restart pjk-tcp-server.service
+sudo systemctl restart pjk-udp-server.service
+sudo systemctl disable --now pjk-tcp-server.service
+sudo systemctl disable --now pjk-udp-server.service
+```
