@@ -1,0 +1,14 @@
+[Unit]
+Description=PJK UDP Server
+After=network.target
+
+[Service]
+Type=simple
+User=member
+WorkingDirectory=/home/member/pjk-tcp-udp/server
+ExecStart=/usr/bin/python3 /home/member/pjk-tcp-udp/server/udp-server.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
