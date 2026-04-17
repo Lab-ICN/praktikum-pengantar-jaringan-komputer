@@ -6,7 +6,7 @@ from Crypto.Cipher import PKCS1_v1_5
 
 BASE_DIR = Path(__file__).resolve().parent
 
-with open(BASE_DIR / "cert.pem", "rb") as f:
+with open(BASE_DIR / "../keys/cert.pem", "rb") as f:
     server_pub_key = RSA.import_key(f.read())
 
 encrypt_cipher = PKCS1_v1_5.new(server_pub_key)

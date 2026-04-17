@@ -11,10 +11,10 @@ BUFFER_SIZE = 4096
 BASE_DIR = Path(__file__).resolve().parent
 
 
-with open(BASE_DIR / "private.key", "rb") as f:
+with open(BASE_DIR / "../keys/private.key", "rb") as f:
     private_key = RSA.import_key(f.read())
 
-with open(BASE_DIR / "cert.pem", "rb") as f:
+with open(BASE_DIR / "../keys/cert.pem", "rb") as f:
     public_key = RSA.import_key(f.read())
 
 

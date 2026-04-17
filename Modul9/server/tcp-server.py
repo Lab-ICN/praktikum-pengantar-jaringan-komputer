@@ -5,8 +5,8 @@ from pathlib import Path
 
 HOST = os.getenv("TCP_BIND", "0.0.0.0")
 PORT = int(os.getenv("TCP_PORT", "4444"))
-CERT_FILE = "cert.pem"
-KEY_FILE = "private.key"
+CERT_FILE = "../keys/cert.pem"
+KEY_FILE = "../keys/private.key"
 BASE_DIR = Path(__file__).resolve().parent
 
 context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
