@@ -7,7 +7,7 @@ from pathlib import Path
 encrypted_base64_input = input("Masukkan pesan Base64: ")
 BASE_DIR = Path(__file__).resolve().parent
 
-with open(BASE_DIR / "private.key", "rb") as f:
+with open(BASE_DIR / "../keys/private.key", "rb") as f:
     private_key = RSA.import_key(f.read())
 
 cipher = PKCS1_v1_5.new(private_key)
