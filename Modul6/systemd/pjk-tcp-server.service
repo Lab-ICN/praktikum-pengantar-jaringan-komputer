@@ -5,8 +5,8 @@ After=network.target
 [Service]
 Type=simple
 User=member
-WorkingDirectory=/home/member/pjk-tcp-udp/server
-ExecStart=/usr/bin/python3 /home/member/pjk-tcp-udp/server/tcp-server.py
+WorkingDirectory=/home/member/praktikum-pengantar-jaringan-komputer/Modul6/server
+ExecStart=/usr/bin/python3 /home/member/praktikum-pengantar-jaringan-komputer/Modul6/server/tcp-server.py
 Restart=always
 RestartSec=5
 
