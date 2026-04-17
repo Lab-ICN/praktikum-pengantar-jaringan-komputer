@@ -59,11 +59,6 @@ The `keys/` folder contains:
 
 Both files are required by the Python server and must be available in the `keys/` folder.
 
-```bash
-cp keys/cert.pem server/cert.pem
-cp keys/private.key server/private.key
-```
-
 ### 2) Install server dependencies
 ```bash
 cd server
