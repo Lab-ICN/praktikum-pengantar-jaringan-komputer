@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=member
 WorkingDirectory=/home/member/praktikum-pengantar-jaringan-komputer/Modul9/server
-ExecStart=/home/member/praktikum-pengantar-jaringan-komputer/Modul9/.venv/bin/python /home/member/praktikum-pengantar-jaringan-komputer/Modul9/server/udp-server.py
+ExecStart=/home/member/praktikum-pengantar-jaringan-komputer/Modul9/server/.venv/bin/python /home/member/praktikum-pengantar-jaringan-komputer/Modul9/server/udp-server.py
 RestartSec=5
 
 [Install]
