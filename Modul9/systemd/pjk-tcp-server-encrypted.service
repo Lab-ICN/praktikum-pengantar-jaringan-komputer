@@ -1,0 +1,14 @@
+[Unit]
+Description=PJK TCP Server Encrypted
+After=network.target
+
+[Service]
+Type=simple
+User=member
+WorkingDirectory=/home/member/praktikum-pengantar-jaringan-komputer/Modul9/server
+ExecStart=/usr/bin/python3 /home/member/praktikum-pengantar-jaringan-komputer/Modul9/server/tcp-server.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
