@@ -1,0 +1,16 @@
+[Unit]
+Description=PJK HTTPS Server Encrypted
+After=network.target
+
+[Service]
+Type=simple
+User=member
+Environment=HTTPS_BIND=0.0.0.0
+Environment=HTTPS_PORT=4443
+WorkingDirectory=/home/member/praktikum-pengantar-jaringan-komputer/Modul10/server
+ExecStart=/usr/bin/python3 /home/member/praktikum-pengantar-jaringan-komputer/Modul10/server/https-server.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

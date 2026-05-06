@@ -1,4 +1,4 @@
-# Module 9 — TCP TLS + UDP RSA
+# Module 10 — TCP TLS, UDP RSA, and HTTPS
 
 ## For Students (Python client only)
 
@@ -78,30 +78,40 @@ UDP server (bind `0.0.0.0:4445`):
 python3 udp-server.py
 ```
 
-### 4) Configure TCP host/port (optional)
-`tcp-server.py` supports these environment variables:
-- `TCP_BIND` (default `0.0.0.0`)
-- `TCP_PORT` (default `4444`)
+The HTTPS server is in `server/https-server.py` and uses the same key pair in `keys/`.
 
-Example:
+Default bind: `0.0.0.0:4443`
+
 ```bash
-TCP_BIND=0.0.0.0 TCP_PORT=4444 python3 tcp-server.py
+cd server
+python3 https-server.py
 ```
+
+Open in a browser or test with:
+
+```bash
+curl -k https://<IP_SERVER>:4443/
+```
+
+Wireshark can decrypt the TLS session because the server is restricted to TLSv1.2 with RSA key exchange.
 
 ### 5) Deploy as systemd services
 Service unit files are available in the `systemd/` folder:
 - `pjk-tcp-server-encrypted.service`
 - `pjk-udp-server-encrypted.service`
+- `pjk-https-server-encrypted.service`
 
-> Important: the current service files use `/home/member/...` paths. Update `User`, `WorkingDirectory`, and `ExecStart` for your server.
+> Important: the included service files are configured for this workspace path. Update `User`, `WorkingDirectory`, and `ExecStart` for your server if you deploy elsewhere.
 
 Installation example:
 ```bash
 sudo cp systemd/pjk-tcp-server-encrypted.service /etc/systemd/system/
 sudo cp systemd/pjk-udp-server-encrypted.service /etc/systemd/system/
+sudo cp systemd/pjk-https-server-encrypted.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable --now pjk-tcp-server-encrypted.service
 sudo systemctl enable --now pjk-udp-server-encrypted.service
+sudo systemctl enable --now pjk-https-server-encrypted.service
 ```
 
 Check status/logs:
@@ -109,5 +119,7 @@ Check status/logs:
 sudo systemctl status pjk-tcp-server-encrypted.service
 sudo systemctl status pjk-udp-server-encrypted.service
 sudo journalctl -u pjk-tcp-server-encrypted.service -f
+sudo systemctl status pjk-https-server-encrypted.service
 sudo journalctl -u pjk-udp-server-encrypted.service -f
+sudo journalctl -u pjk-https-server-encrypted.service -f
 ```
