@@ -14,7 +14,7 @@ encrypt_cipher = PKCS1_v1_5.new(server_pub_key)
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.settimeout(5)
 
-server_host = os.getenv("UDP_HOST", "[ip server]")
+server_host = os.getenv("UDP_HOST", "10.34.4.166")
 server_port = int(os.getenv("UDP_PORT", "4445"))
 server_address = (server_host, server_port)
 

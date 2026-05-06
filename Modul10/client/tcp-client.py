@@ -2,7 +2,7 @@ import socket
 import ssl
 import os
 
-HOST = os.getenv("TCP_HOST", "[ip server]")
+HOST = os.getenv("TCP_HOST", "10.34.4.166")
 PORT = int(os.getenv("TCP_PORT", "4444"))
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
